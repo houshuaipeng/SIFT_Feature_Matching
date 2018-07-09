@@ -1,4 +1,4 @@
-// opencv_empty_proj.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£  
+// opencv_empty_proj.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚  
 //
    
 #include <opencv2/opencv.hpp>  
@@ -9,29 +9,29 @@
 using namespace std;  
 using namespace cv;  
    
-/* ½»²æ¼ì²éËã·¨
- * ¸ÃËã·¨½øĞĞÁ½´ÎÆ¥Åä£¬µÚÒ»´ÎÆ¥Åä¿ÉÒÔÊ¹ÓÃÇ°Á½ÖÖµÄÆ¥ÅäËã·¨£¬µÚ¶ş´ÎÆ¥ÅäÊ±£¬Ê¹ÓÃµÄÆ¥ÅäËã·¨µÄÖ´ĞĞË³ĞòÓëµÚÒ»´ÎÆ¥ÅäµÄË³ĞòÏà·´£¬
- * ½«µÚ¶ş·ùÍ¼ÏñµÄÃ¿¸ö¹Ø¼üµãÖğ¸öÓëµÚÒ»·ùÍ¼ÏñµÄÈ«²¿¹Ø¼üµã½øĞĞ±È½Ï¡£
- * Ö»ÓĞÁ½¸ö·½ÏòÉÏ¶¼Æ¥Åäµ½ÁËÍ¬Ò»¶ÔÌØÕ÷µã£¬²ÅÈÏÎªÊÇÒ»¸öÓĞĞ§µÄÆ¥Åä¶Ô¡£
+/* äº¤å‰æ£€æŸ¥ç®—æ³•
+ * è¯¥ç®—æ³•è¿›è¡Œä¸¤æ¬¡åŒ¹é…ï¼Œç¬¬ä¸€æ¬¡åŒ¹é…å¯ä»¥ä½¿ç”¨å‰ä¸¤ç§çš„åŒ¹é…ç®—æ³•ï¼Œç¬¬äºŒæ¬¡åŒ¹é…æ—¶ï¼Œä½¿ç”¨çš„åŒ¹é…ç®—æ³•çš„æ‰§è¡Œé¡ºåºä¸ç¬¬ä¸€æ¬¡åŒ¹é…çš„é¡ºåºç›¸åï¼Œ
+ * å°†ç¬¬äºŒå¹…å›¾åƒçš„æ¯ä¸ªå…³é”®ç‚¹é€ä¸ªä¸ç¬¬ä¸€å¹…å›¾åƒçš„å…¨éƒ¨å…³é”®ç‚¹è¿›è¡Œæ¯”è¾ƒã€‚
+ * åªæœ‰ä¸¤ä¸ªæ–¹å‘ä¸Šéƒ½åŒ¹é…åˆ°äº†åŒä¸€å¯¹ç‰¹å¾ç‚¹ï¼Œæ‰è®¤ä¸ºæ˜¯ä¸€ä¸ªæœ‰æ•ˆçš„åŒ¹é…å¯¹ã€‚
 */
 
 void symmetryTest(std::vector<cv::DMatch>& matches1,
                        std::vector<cv::DMatch>& matches2,
                        std::vector<cv::DMatch>& symMatches)
 {
-   // ±éÀúÍ¼Ïñ1µ½Í¼Ïñ2µÄÆ¥Åä
+   // éå†å›¾åƒ1åˆ°å›¾åƒ2çš„åŒ¹é…
    for (std::vector<cv::DMatch>::const_iterator matchIterator1= matches1.begin();
         matchIterator1!= matches1.end(); ++matchIterator1)
    {
-       //  ±éÀúÍ¼Ïñ2µ½Í¼Ïñ1µÄÆ¥Åä
+       //  éå†å›¾åƒ2åˆ°å›¾åƒ1çš„åŒ¹é…
        for (std::vector<cv::DMatch>::const_iterator matchIterator2= matches2.begin();
            matchIterator2!= matches2.end(); ++matchIterator2)
        {
-           // ½øĞĞÆ¥Åä²âÊÔ
+           // è¿›è¡ŒåŒ¹é…æµ‹è¯•
            if (matchIterator1->queryIdx == matchIterator2->trainIdx  &&
                matchIterator2->queryIdx == matchIterator1->trainIdx)
            {
-               // ÈôÊÇ×îºÃÆ¥Åä£¬Ôò¼ÓÈë
+               // è‹¥æ˜¯æœ€å¥½åŒ¹é…ï¼Œåˆ™åŠ å…¥
                symMatches.push_back(*matchIterator1);
                break;
            }
@@ -39,7 +39,7 @@ void symmetryTest(std::vector<cv::DMatch>& matches1,
    }
 }
 
-//ÓÅÑ¡Æ¥Åäµã
+//ä¼˜é€‰åŒ¹é…ç‚¹
 vector<DMatch> chooseGood(Mat descriptor,vector<DMatch> matches)
 {
 	double max_dist = 0; double min_dist = 100;
@@ -60,20 +60,20 @@ vector<DMatch> chooseGood(Mat descriptor,vector<DMatch> matches)
 }
 int main(int argc, char* argv[])  
 {  
-    //const char* imagename = "C:/Users/14518/Desktop/±ÏÒµÉè¼Æ/ÓÃµ½µÄÍ¼Æ¬/testt.jpg";  
-	const char* imagename = "C:/Users/14518/Desktop/2.jpg";
+    //const char* imagename = "ä½ çš„å›¾ç‰‡åœ°å€";  
+	const char* imagename = "ä½ çš„å›¾ç‰‡åœ°å€";
     
-    //´ÓÎÄ¼şÖĞ¶ÁÈëÍ¼Ïñ  
+    //ä»æ–‡ä»¶ä¸­è¯»å…¥å›¾åƒ  
     Mat img = imread(imagename);  
-    //Mat img2=imread("C:/Users/14518/Desktop/±ÏÒµÉè¼Æ/ÓÃµ½µÄÍ¼Æ¬/test.jpg");  
-	Mat img2=imread("C:/Users/14518/Desktop/1.jpg"); 
+    //Mat img2=imread("ä½ çš„å›¾ç‰‡åœ°å€");  
+	Mat img2=imread("ä½ çš„å›¾ç‰‡åœ°å€"); 
 
-    //ÏÔÊ¾Í¼Ïñ  
+    //æ˜¾ç¤ºå›¾åƒ  
     imshow("image before", img);  
     imshow("image2 before",img2);  
        
    
-    //siftÌØÕ÷¼ì²â  
+    //siftç‰¹å¾æ£€æµ‹  
     SiftFeatureDetector  siftdtc;  
     vector<KeyPoint>kp1,kp2;  
    
@@ -87,11 +87,11 @@ int main(int argc, char* argv[])
     drawKeypoints(img2,kp2,outimg2);   
     imshow("image2 keypoints",outimg2);  
    
-   //ÔÚ¼ì²âµ½µÄÌØÕ÷µãÉÏÉú³ÉÌØÕ÷ÃèÊö·û
+   //åœ¨æ£€æµ‹åˆ°çš„ç‰¹å¾ç‚¹ä¸Šç”Ÿæˆç‰¹å¾æè¿°ç¬¦
     SiftDescriptorExtractor extractor;  
     Mat descriptor1,descriptor2;  
-    extractor.compute(img,kp1,descriptor1);  //µÚÒ»¸öÃèÊö·û
-    extractor.compute(img2,kp2,descriptor2);  //µÚ¶ş¸öÃèÊö·û
+    extractor.compute(img,kp1,descriptor1);  //ç¬¬ä¸€ä¸ªæè¿°ç¬¦
+    extractor.compute(img2,kp2,descriptor2);  //ç¬¬äºŒä¸ªæè¿°ç¬¦
    
 	FlannBasedMatcher matcher;
 	//BFMatcher matcher;
@@ -99,10 +99,10 @@ int main(int argc, char* argv[])
 	//matcher.add(train_dest_collection);
 	//matcher.train();
     
-	vector<DMatch> matches1,matches2;   //¶¨ÒåÁ¬½Ó¶ÔÏó
-    matcher.match(descriptor1,descriptor2,matches1);  //Éú³ÉÆ¥Åä¶Ô
+	vector<DMatch> matches1,matches2;   //å®šä¹‰è¿æ¥å¯¹è±¡
+    matcher.match(descriptor1,descriptor2,matches1);  //ç”ŸæˆåŒ¹é…å¯¹
 	matcher.match(descriptor2,descriptor1,matches2);
-   //Æ¥Åä
+   //åŒ¹é…
 	vector<DMatch> goodMatches1,goodMatches2,symMatches;
 	goodMatches1=chooseGood(descriptor1,matches1);
 	goodMatches2=chooseGood(descriptor2,matches2);
@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
 	namedWindow("matches",CV_WINDOW_NORMAL);
     imshow("matches",img_matches);  
    
-    //´Ëº¯ÊıµÈ´ı°´¼ü£¬°´¼üÅÌÈÎÒâ¼ü¾Í·µ»Ø  
+    //æ­¤å‡½æ•°ç­‰å¾…æŒ‰é”®ï¼ŒæŒ‰é”®ç›˜ä»»æ„é”®å°±è¿”å›  
     waitKey();  
     return 0;  
 }
